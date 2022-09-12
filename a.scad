@@ -555,7 +555,7 @@ module RodEnd(diameter, height, thread_len=0, thread_diam=0, thread_pitch=0) {
   thread_len = (thread_len==0) ? 0.5*diameter : thread_len;
   thread_pitch = (thread_pitch==0) ? ThreadPitch(thread_diam) : thread_pitch;
 
-  ScrewHole(thread_diam, thread_len, [0, 0, height], [180,0,0], thread_pitch)
+  ScrewHole(thread_diam, thread_len*3, [0, 0, height], [180,0,0], thread_pitch)
     cylinder(r=diameter/2, h=height, $fn=24*diameter);
 }
 
@@ -590,23 +590,54 @@ module RodExtender(diameter, height, thread_len=0, thread_diam=0, thread_pitch=0
 
 
 module Demo() {
-  translate([70, -10, 0])
-    difference(){
-           RodStart(20, 30);
-           cylinder(100,5,5,$fn = 100);
-        }
+  translate([0, -20, 0])
+   // difference(){
+           RodEnd(8, 10);
+           //cylinder(100,2,2,$fn = 100);
+     //   }
 
   
     
     
- translate([70, 20, 0])
-    RodEnd(20, 30);
+ translate([0, 20, 0])
+        RodStart(8, 10);
 }
 
 
 Demo();
 
-//MetricBoltSet(6, 8, 10);
+
+dia = 8;
+thick = 1;
+length = 120;
+
+difference(){
+    translate([0, -20, 10])
+   cylinder(length,dia/2,dia/2,$fn=100);
+    translate([0, -20, 9])
+   cylinder(length+3,dia/2-thick,dia/2-thick,$fn=100);
+}
+
+
+
+niddle_len = 10;
+niddle_dia = 4;
+difference(){
+    translate([0, -20, 10+length])
+    cylinder(niddle_len,dia/2,niddle_dia/2,$fn=100);
+    translate([0, -20, 10+length])
+    cylinder(niddle_len,dia/2-thick,niddle_dia/2-thick+0.5,$fn=100);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
