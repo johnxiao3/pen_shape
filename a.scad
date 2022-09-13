@@ -539,10 +539,10 @@ module RodStart(diameter, height, thread_len=0, thread_diam=0, thread_pitch=0) {
   thread_len = (thread_len==0) ? 0.5*diameter : thread_len;
   thread_pitch = (thread_pitch==0) ? ThreadPitch(thread_diam) : thread_pitch;
 
-  cylinder(r=diameter/2, h=height, $fn=24*diameter);
+  cylinder(r=diameter/2, h=height, $fn=100);
 
   translate([0, 0, height])
-    ScrewThread(thread_diam, thread_len, thread_pitch,
+    ScrewThread(thread_diam+0.9, thread_len*7/5, thread_pitch,
       tip_height=thread_pitch, tip_min_fract=0.75);
 }
 
@@ -555,8 +555,8 @@ module RodEnd(diameter, height, thread_len=0, thread_diam=0, thread_pitch=0) {
   thread_len = (thread_len==0) ? 0.5*diameter : thread_len;
   thread_pitch = (thread_pitch==0) ? ThreadPitch(thread_diam) : thread_pitch;
 
-  ScrewHole(thread_diam, thread_len*3, [0, 0, height], [180,0,0], thread_pitch)
-    cylinder(r=diameter/2, h=height, $fn=24*diameter);
+  ScrewHole(thread_diam+0.9, thread_len*4, [0, 0, height], [180,0,0], thread_pitch)
+    cylinder(r=diameter/2, h=height, $fn=100);
 }
 
 
@@ -590,9 +590,9 @@ module RodExtender(diameter, height, thread_len=0, thread_diam=0, thread_pitch=0
 
 
 module Demo() {
-  translate([0, -20, 0])
+  //translate([0, -20, 0])
    // difference(){
-           RodEnd(8, 10);
+     //      RodEnd(9, 10);
            //cylinder(100,2,2,$fn = 100);
      //   }
 
@@ -600,16 +600,20 @@ module Demo() {
     
     
  translate([0, 20, 0])
-        RodStart(8, 10);
+        RodStart(9, 10);
 }
 
 
 Demo();
+length = 48-10;
+dia = 9;
+translate([0, 20, -length])
+cylinder(length,dia/2,dia/2,$fn=100);
 
-
-dia = 8;
+/*
+dia = 9;
 thick = 1;
-length = 120;
+length = 84;
 
 difference(){
     translate([0, -20, 10])
@@ -620,8 +624,8 @@ difference(){
 
 
 
-niddle_len = 10;
-niddle_dia = 4;
+niddle_len = 15;
+niddle_dia = 4.5;
 difference(){
     translate([0, -20, 10+length])
     cylinder(niddle_len,dia/2,niddle_dia/2,$fn=100);
@@ -631,16 +635,4 @@ difference(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
